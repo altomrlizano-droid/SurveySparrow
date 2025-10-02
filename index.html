@@ -11,23 +11,22 @@
   <div id="status"></div>
 
   <!-- Primary SurveySparrow SpotCheck tag -->
-  <script id="ss-spot-script">
-    (function () {
-      var e="ss-spotcheck-widget", t="script", a=document, r=window, s, n, c;
-      /* 🔁 REPLACE with your real values */
-      r.SP_TARGET_TOKEN = "tar-nrBEVGf68LaEA4bjaUcM59";
-      r.SS_SP_ACCOUNT   = "abc1234d.surveysparrow.com";
-      if (!a.getElementById(e)) {
-        var S=function(){S.update(arguments)}; S.args=[]; S.update=function(args){S.args.push(args)};
-        r.SpotCheckLauncher=S;
-        s=a.getElementsByTagName(t); c=s[s.length-1];
-        n=a.createElement(t); n.type="text/javascript"; n.async=true; n.id=e;
-        n.src=["https://", r.SS_SP_ACCOUNT, "/spotcheck/widget/", r.SP_TARGET_TOKEN].join("");
-        n.onerror=function(){document.getElementById('status').textContent="Loader failed (check token/subdomain/blockers)";}
-        c.parentNode.insertBefore(n,c);
-      }
-    })();
-  </script>
+<script id="ss-spot-script">
+  (function () {
+    var e="ss-spotcheck-widget", t="script", a=document, r=window, s, n, c;
+    r.SP_TARGET_TOKEN = "tar-nrBEVGf68LaEA4bjaUcM59";                 // your real token
+    r.SS_SP_ACCOUNT   = "abc1234d.surveysparrow.com";
+    if (!a.getElementById(e)) {
+      var S=function(){S.update(arguments)}; S.args=[]; S.update=function(args){S.args.push(args)};
+      r.SpotCheckLauncher=S;
+      s=a.getElementsByTagName(t); c=s[s.length-1];
+      n=a.createElement(t); n.type="text/javascript"; n.async=true; n.id=e;
+      n.src=["https://", r.SS_SP_ACCOUNT, "/spotcheck/widget/", r.SP_TARGET_TOKEN, "?v=", Date.now()].join("");
+      c.parentNode.insertBefore(n,c);
+    }
+  })();
+</script>
+
 
   <!-- Auto-launch when ready + manual button -->
   <script>
