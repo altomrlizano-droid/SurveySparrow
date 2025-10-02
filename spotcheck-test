@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SpotCheck Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>body{font-family:system-ui,Arial;margin:2rem}</style>
+</head>
+<body>
+  <h1>SurveySparrow SpotCheck — GitHub Pages Test</h1>
+  <p>If everything is configured, a SpotCheck popup should appear.</p>
+  <button id="showNow">Show SpotCheck now</button>
+  <div id="status"></div>
+
+  <!-- Primary SurveySparrow SpotCheck tag -->
+  <script id="ss-spot-script">
+    (function () {
+      var e="ss-spotcheck-widget", t="script", a=document, r=window, s, n, c;
+      /* 🔁 REPLACE with your real values */
+      r.SP_TARGET_TOKEN = "tar-nrBEVGf68LaEA4bjaUcM59";
+      r.SS_SP_ACCOUNT   = "abc1234d.surveysparrow.com";
+      if (!a.getElementById(e)) {
+        var S=function(){S.update(arguments)}; S.args=[]; S.update=function(args){S.args.push(args)};
+        r.SpotCheckLauncher=S;
+        s=a.getElementsByTagName(t); c=s[s.length-1];
+        n=a.createElement(t); n.type="text/javascript"; n.async=true; n.id=e;
+        n.src=["https://", r.SS_SP_ACCOUNT, "/spotcheck/widget/", r.SP_TARGET_TOKEN].join("");
+        n.onerror=function(){document.getElementById('status').textContent="Loader failed (check token/subdomain/blockers)";}
+        c.parentNode.insertBefore(n,c);
+      }
+    })();
+  </script>
+
+  <!-- Auto-launch when ready + manual button -->
+  <script>
+    function launch() {
+      if (typeof window.SpotCheckLauncher === "function") {
+        window.SpotCheckLauncher("popup", {
+          userDetails: { email: "test@example.com" }, // optional
+          properties: { origin: "github-pages" }
+        });
+        return true;
+      }
+      return false;
+    }
+    (function waitThenLaunch(){
+      if (launch()) return;
+      var tries=0, iv=setInterval(function(){ if (launch()||++tries>50) clearInterval(iv); },200);
+    })();
+    document.getElementById("showNow").onclick=function(){ launch() || alert("Still loading…"); };
+  </script>
+</body>
+</html>
